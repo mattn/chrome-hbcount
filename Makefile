@@ -28,13 +28,17 @@ SRCS = hbcount.gif hbcount.html hbcount.js manifest.json
 all : chrome-hbcount.crx
 
 first : $(SRCS)
-	-@rm -r $(DEST)
+	@-rm -r $(DEST)
 	@mkdir $(DEST)
 	@cp $(SRCS) $(DEST)/.
 	$(CHROME) --pack-extension=$(DEST)
 
 chrome-hbcount.crx : $(SRCS)
-	-@rm -r $(DEST)
+	@-rm -r $(DEST)
 	@mkdir $(DEST)
 	@cp $(SRCS) $(DEST)/.
 	$(CHROME) --pack-extension=$(DEST) --pack-extension-key=chrome-hbcount.pem
+
+clean:
+	-@rm *.crx
+	-@rm -r $(DEST)
