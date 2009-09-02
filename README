@@ -1,0 +1,18 @@
+chrome-hbcount
+==============
+
+What is this:
+hatena bookmark counter for google chrome. hatena bookmark is social bookmark web service. see http://b.hatena.ne.jp/
+
+How work this:
+show image of numbers which how many users bookmarked the URL.
+
+Screen shot:
+	http://chrome-hbcount.github.com/
+
+Author:
+	mattn: Yasuhiro Matsumoto (http://mattn.kaoriya.net/)
+
+License:
+	BSD
+
