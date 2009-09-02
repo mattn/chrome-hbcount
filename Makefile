@@ -1,10 +1,19 @@
 ifndef CHROME
 ifneq ($(windir),)
-CHROME = "$(USERPROFILE)/Local Settings/Application Data/Google/Chrome/Application/chrome.exe"
+
+# Windows
 DEST = "$(shell pwd)\chrome-hbcount"
+CHROME = "$(USERPROFILE)/Local Settings/Application Data/Google/Chrome/Application/chrome.exe"
+
 else
+
+# Other Platform: Linux? Mac?
 DEST = $(shell pwd)/chrome-hbcount
+
+CHROME = $(shell which crxmake)
+ifeq ($(CHROME),)
 CHROME = $(shell which google-chrome)
+endif
 ifeq ($(CHROME),)
 CHROME = $(shell which chromium-browser)
 endif
@@ -22,10 +31,10 @@ first : $(SRCS)
 	-@rm -r $(DEST)
 	@mkdir $(DEST)
 	@cp $(SRCS) $(DEST)/.
-	$(CHROME) --enable-extensions --pack-extension=$(DEST)
+	$(CHROME) --pack-extension=$(DEST)
 
 chrome-hbcount.crx : $(SRCS)
 	-@rm -r $(DEST)
 	@mkdir $(DEST)
 	@cp $(SRCS) $(DEST)/.
-	$(CHROME) --enable-extensions --pack-extension=$(DEST) --pack-extension-key=chrome-hbcount.pem
+	$(CHROME) --pack-extension=$(DEST) --pack-extension-key=chrome-hbcount.pem
