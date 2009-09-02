@@ -1,0 +1,14 @@
+{
+  "name": "hbcount",
+  "description": "hatena bookmark counter",
+  "version": "0.0.1",
+  "icons": { "normal": "hbcount.gif" },
+  "permissions": [ "tabs" ],
+  "toolstrips": [ "hbcount.html" ],
+  "content_scripts": [
+    {
+      "js": [ "hbcount.js" ],
+      "matches": [ "http://*/*" ]
+    }
+  ]
+}
