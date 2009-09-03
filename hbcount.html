@@ -4,23 +4,21 @@
 <script type="text/javascript">
 window.onload = function() {
   var hbcount = document.getElementById("hbcount");
+  function update(port, url) {
+    chrome.tabs.getSelected(null, function(tab) {
+      hbcount.src = 'hbcount.gif';
+      hbcount.onclick = null;
+      if (url.match(/^chrome:\/\//)) return;
+      if (tab.url != url) return;
+      url = url.replace(/#/g, '%23');
+      hbcount.src = 'http://b.hatena.ne.jp/entry/image/' + url;
+      hbcount.onclick = function() { port.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
+    });
+  }
   chrome.extension.onConnect.addListener(function(port) {
-    var currentPort;
-    function update(url) {
-      chrome.tabs.getSelected(function(tab) {
-        hbcount.src = 'hbcount.gif';
-        hbcount.onclick = null;
-        if (url.match(/^chrome:\/\//)) return;
-        if (tab.url != url) return;
-        url = url.replace(/#/g, '%23');
-        hbcount.src = 'http://b.hatena.ne.jp/entry/image/' + url;
-        hbcount.onclick = function() { currentPort.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
-        currentPort = port;
-      });
-    }
-    port.onMessage.addListener(function(data) { update(data.url); });
+    port.onMessage.addListener(function(data) { update(port, data.url); });
     chrome.tabs.onSelectionChanged.addListener(function(id, props) {
-      chrome.tabs.get(id, function(tab) { update(tab.url); });
+      chrome.tabs.get(id, function(tab) { update(port, tab.url); });
     });
   });
 };

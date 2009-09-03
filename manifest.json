@@ -1,7 +1,7 @@
 {
   "name": "hatena bookmark counter",
   "description": "hatena bookmark counter for google chrome. hatena bookmark is social bookmark web service. see 'http://b.hatena.ne.jp/'. this extension show image of numbers which how many users bookmarked the URL.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "id": "ikfhhglmhiogpjlcepcjabphaebednlm",
   "icons": { "normal": "hbcount.gif" },
   "permissions": [ "tabs" ],

@@ -42,3 +42,7 @@ chrome-hbcount.crx : $(SRCS)
 clean:
 	-@rm *.crx
 	-@rm -r $(DEST)
+
+test:
+	$(CHROME) --enable-extensions --load-extension=$(DEST)/..
+
