@@ -5,15 +5,17 @@
 window.onload = function() {
   var hbcount = document.getElementById("hbcount");
   chrome.extension.onConnect.addListener(function(port) {
+    var currentPort;
     function update(url) {
-      chrome.tabs.getSelected(null, function(tab) {
+      chrome.tabs.getSelected(function(tab) {
         hbcount.src = 'hbcount.gif';
         hbcount.onclick = null;
         if (url.match(/^chrome:\/\//)) return;
         if (tab.url != url) return;
         url = url.replace(/#/g, '%23');
         hbcount.src = 'http://b.hatena.ne.jp/entry/image/' + url;
-        hbcount.onclick = function() { port.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
+        hbcount.onclick = function() { currentPort.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
+        currentPort = port;
       });
     }
     port.onMessage.addListener(function(data) { update(data.url); });
