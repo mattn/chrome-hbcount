@@ -6,12 +6,15 @@ window.onload = function() {
   var hbcount = document.getElementById("hbcount");
   chrome.extension.onConnect.addListener(function(port) {
     function update(url) {
-      hbcount.src = 'hbcount.gif';
-      hbcount.onclick = null;
-      if (url.match(/^chrome:\/\//)) return;
-      url = url.replace(/#/g, '%23');
-      hbcount.src = 'http://b.hatena.ne.jp/entry/image/' + url;
-      hbcount.onclick = function() { port.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
+      chrome.tabs.getSelected(null, function(tab) {
+        hbcount.src = 'hbcount.gif';
+        hbcount.onclick = null;
+        if (url.match(/^chrome:\/\//)) return;
+        if (tab.url != url) return;
+        url = url.replace(/#/g, '%23');
+        hbcount.src = 'http://b.hatena.ne.jp/entry/image/' + url;
+        hbcount.onclick = function() { port.postMessage({'url': 'http://b.hatena.ne.jp/entry/' + url}); }
+      });
     }
     port.onMessage.addListener(function(data) { update(data.url); });
     chrome.tabs.onSelectionChanged.addListener(function(id, props) {

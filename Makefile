@@ -37,7 +37,7 @@ chrome-hbcount.crx : $(SRCS)
 	@-rm -r $(DEST)
 	@mkdir $(DEST)
 	@cp $(SRCS) $(DEST)/.
-	$(CHROME) --pack-extension=$(DEST) --pack-extension-key=chrome-hbcount.pem
+	$(CHROME) --pack-extension=$(DEST) --pack-extension-key=$(DEST).pem
 
 clean:
 	-@rm *.crx
